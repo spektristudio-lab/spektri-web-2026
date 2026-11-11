@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPEKTRI — Spectrum of Art</title>
+<meta name="description" content="SPEKTRI is a film and audiovisual studio in Prishtina. Spectrum of art.">
+<style>
+@font-face{font-family:"Funnel Display";src:url(fonts/FunnelDisplay.woff2) format("woff2");font-weight:300 800;font-display:swap}
+@font-face{font-family:"Funnel Sans";src:url(fonts/FunnelSans.woff2) format("woff2");font-weight:300 800;font-display:swap}
+:root{
+  --black:#000;--white:#fff;--green:#00483d;--mint:#a9e8a1;--sky:#dfeeff;
+  --dim:rgba(255,255,255,.55);--line:rgba(255,255,255,.16);
+  --pad:clamp(20px,4vw,56px);
+  --display:"Funnel Display",system-ui,sans-serif;
+  --sans:"Funnel Sans","Funnel Display",system-ui,sans-serif;
+  --ease:cubic-bezier(.19,1,.22,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#000}
+body{background:#000;color:#fff;font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lock{overflow:hidden;height:100svh}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.9;letter-spacing:-.03em}
+.micro{font-family:var(--display);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim)}
+.wrap{padding-inline:var(--pad);max-width:1700px;margin-inline:auto}
+section{position:relative}
+:focus-visible{outline:2px solid var(--mint);outline-offset:4px}
+
+/* ───── intro: pixel assemble → pixel dissolve ───── */
+#intro{position:fixed;inset:0;z-index:100;pointer-events:none}
+#intro .cells{position:absolute;inset:0;display:grid}
+#intro .cells i{background:#000;transition:opacity .5s linear}
+#intro .mark{position:absolute;left:50%;top:50%;width:clamp(44px,6vw,72px);transform:translate(-50%,-50%);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,1fr);aspect-ratio:1/2;transition:opacity .35s}
+#intro .mark i{background:#fff;transform:scale(0);animation:pop .45s var(--ease) forwards}
+#intro .mark i:nth-child(1){grid-area:1/2;animation-delay:.1s}
+#intro .mark i:nth-child(2){grid-area:2/1;animation-delay:.22s}
+#intro .mark i:nth-child(3){grid-area:3/2;animation-delay:.34s}
+#intro .mark i:nth-child(4){grid-area:4/1;animation-delay:.46s}
+@keyframes pop{to{transform:scale(1)}}
+#intro.out .mark{opacity:0}
+#intro.gone{display:none}
+
+/* ───── header ───── */
+header{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px var(--pad);transition:transform .6s var(--ease);mix-blend-mode:difference}
+header.hide{transform:translateY(-110%)}
+header img{height:19px;width:auto}
+header nav{display:flex;gap:clamp(18px,3vw,40px)}
+header nav a{font-family:var(--display);font-size:12px;letter-spacing:.09em;text-transform:uppercase;position:relative;padding-bottom:2px}
+header nav a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:#fff;transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+header nav a:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ───── hero ───── */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;padding-top:110px;background:#000}
+.hero .aura{position:absolute;inset:-20%;z-index:0;pointer-events:none;
+  background:radial-gradient(38% 38% at var(--mx,70%) var(--my,45%),rgba(0,72,61,.95),transparent 70%),radial-gradient(50% 50% at 100% 100%,rgba(0,72,61,.5),transparent 70%)}
+.hero .corner{position:absolute;z-index:2;top:78px;display:flex;justify-content:space-between;left:var(--pad);right:var(--pad)}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-bottom:clamp(20px,3vw,40px)}
+.hero h1{font-size:clamp(50px,13.6vw,250px);letter-spacing:-.045em;line-height:.86}
+.ln{display:block;overflow:hidden;padding-block:.02em}
+.w{display:inline-block;white-space:nowrap}
+.c{display:inline-block;transform:translateY(112%);transition:transform 1.1s var(--ease);transition-delay:calc(var(--i)*38ms + .15s)}
+body.ready .c{transform:none}
+.art .c{font-weight:700;background:linear-gradient(100deg,#fff 0%,var(--mint) 30%,var(--sky) 55%,#fff 80%,var(--mint) 100%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:spec 7s linear infinite;animation-delay:calc(var(--i)*-.35s)}
+@keyframes spec{to{background-position:-300% 0}}
+.hero .row{display:flex;justify-content:space-between;align-items:end;margin-top:clamp(18px,3vw,36px);opacity:0;transform:translateY(14px);transition:opacity 1s .9s,transform 1s .9s var(--ease)}
+body.ready .hero .row{opacity:1;transform:none}
+.cta{display:inline-flex;align-items:center;gap:12px;font-family:var(--display);font-size:12px;letter-spacing:.09em;text-transform:uppercase;border:1px solid #fff;padding:13px 22px;border-radius:99px;position:relative;overflow:hidden;isolation:isolate;transition:color .4s}
+.cta::before{content:"";position:absolute;inset:0;background:#fff;transform:translateY(101%);transition:transform .5s var(--ease);z-index:-1}
+.cta:hover{color:#000}.cta:hover::before{transform:none}
+.checker{position:relative;z-index:2;height:40px;--s:20px;background:conic-gradient(#fff 25%,#000 0 50%,#fff 0 75%,#000 0) 0 0/calc(var(--s)*2) calc(var(--s)*2);animation:slide 16s steps(48) infinite}
+@keyframes slide{to{background-position:calc(var(--s)*-48) 0}}
+.px{position:absolute;z-index:1;right:var(--pad);top:clamp(110px,18vh,190px);width:clamp(54px,8vw,120px);aspect-ratio:1/2;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,1fr)}
+.px i{background:#fff;animation:blink 5s infinite steps(1)}
+.px i:nth-child(1){grid-area:1/2}.px i:nth-child(2){grid-area:2/1;animation-delay:1.2s}.px i:nth-child(3){grid-area:3/2;animation-delay:2.4s}.px i:nth-child(4){grid-area:4/1;animation-delay:3.6s}
+@keyframes blink{0%,86%{opacity:1}88%,92%{opacity:.08}94%,100%{opacity:1}}
+
+
+/* ───── work ───── */
+.work{padding:clamp(90px,14vw,200px) 0 clamp(80px,12vw,180px)}
+.work .head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:clamp(30px,5vw,70px)}
+.work h2{font-size:clamp(46px,8vw,140px)}
+.grid-w{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,100px) clamp(16px,2vw,32px);align-items:start}
+.card{display:block;position:relative}
+.card:nth-child(even){margin-top:clamp(40px,12vw,220px)}
+.ph{position:relative;overflow:hidden;aspect-ratio:16/9;background:#0a1411;clip-path:inset(100% 0 0 0);transition:clip-path 1.3s var(--ease)}
+.card.in .ph{clip-path:inset(0 0 0 0)}
+.ph img{position:absolute;left:0;width:100%;height:122%;top:-11%;object-fit:cover;transform:scale(1.25);transition:transform 1.8s var(--ease),filter .6s;filter:saturate(.85) brightness(.85);will-change:transform}
+.card.in .ph img{transform:translate3d(0,var(--py,0%),0) scale(1)}
+.card:hover .ph img{filter:none}
+.meta{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding-top:16px;overflow:hidden}
+.meta h3{font-size:clamp(22px,2.6vw,42px);transition:transform .6s var(--ease)}
+.meta .micro{white-space:nowrap}
+.card:hover .meta h3{transform:translateX(10px)}
+#cur{position:fixed;left:0;top:0;z-index:60;width:92px;height:92px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:11px;letter-spacing:.1em;text-transform:uppercase;pointer-events:none;transform:translate(-50%,-50%) scale(0);transition:transform .45s var(--ease);mix-blend-mode:normal}
+#cur.on{transform:translate(-50%,-50%) scale(1)}
+@media(max-width:760px){.hero h1{font-size:16.2vw}.grid-w{grid-template-columns:1fr}.card:nth-child(even){margin-top:0}#cur{display:none}}
+@media(hover:none){#cur{display:none}}
+
+/* ───── services ───── */
+.services{padding:clamp(40px,6vw,90px) 0 clamp(80px,12vw,180px)}
+.services ul{list-style:none;border-top:1px solid var(--line)}
+.services li{position:relative;isolation:isolate;overflow:hidden;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:clamp(20px,3vw,42px) 0;transition:padding .6s var(--ease)}
+.services li::before{content:"";position:absolute;inset:0;background:var(--green);transform:scaleY(0);transform-origin:bottom;transition:transform .6s var(--ease);z-index:-1}
+.services li:hover::before{transform:none}
+.services li:hover{padding-inline:clamp(12px,2vw,28px)}
+.services h3{font-size:clamp(40px,8.6vw,150px)}
+.services .sq{width:clamp(14px,2vw,28px);aspect-ratio:1;background:#fff;transform:scale(0) rotate(90deg);transition:transform .6s var(--ease)}
+.services li:hover .sq{transform:none}
+
+/* ───── marquee ───── */
+.marq{overflow:hidden;white-space:nowrap;padding:clamp(24px,3vw,44px) 0;border-block:1px solid var(--line)}
+.marq .t{display:inline-flex;will-change:transform}
+.marq span{display:inline-flex;align-items:center;gap:clamp(30px,4vw,64px);padding-right:clamp(30px,4vw,64px);font-family:var(--display);text-transform:uppercase;letter-spacing:-.035em;font-size:clamp(54px,11vw,200px);line-height:.9}
+.marq span::after{content:"";width:.34em;aspect-ratio:1;background:#fff;display:inline-block}
+.marq span:nth-child(even){color:transparent;-webkit-text-stroke:1.5px #fff}
+
+/* ───── contact ───── */
+.contact{background:radial-gradient(70% 90% at 0% 100%,var(--green) 0,transparent 60%),radial-gradient(60% 80% at 100% 0%,var(--sky),transparent 60%),linear-gradient(120deg,var(--mint),var(--sky));color:#000;padding:clamp(80px,12vw,180px) 0 clamp(30px,4vw,56px);overflow:hidden}
+.contact .micro{color:rgba(0,0,0,.6)}
+.contact h2{font-size:clamp(56px,13vw,240px);margin:16px 0 clamp(30px,5vw,70px)}
+.mail{display:inline-block;font-family:var(--display);font-size:clamp(24px,5vw,84px);letter-spacing:-.03em;line-height:1.05;position:relative;word-break:break-all;transition:transform .3s var(--ease)}
+.mail::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:#000;transform-origin:left;transition:transform .6s var(--ease)}
+.mail:hover::after{transform:scaleX(.0);transform-origin:right}
+.rows{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:clamp(40px,6vw,90px);padding-top:20px;border-top:1px solid rgba(0,0,0,.25)}
+.rows b{font-weight:500;font-size:17px;display:block;margin-top:4px}
+footer{background:#000;padding:26px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer .m{width:16px;aspect-ratio:1/2;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,1fr)}
+footer .m i{background:#fff}footer .m i:nth-child(1){grid-area:1/2}footer .m i:nth-child(2){grid-area:2/1}footer .m i:nth-child(3){grid-area:3/2}footer .m i:nth-child(4){grid-area:4/1}
+
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s,transform 1.2s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  #intro{display:none}.c{transform:none;transition:none}.art .c,.checker,.px i{animation:none}
+  .hero .row,.rv{opacity:1;transform:none;transition:none}.ph{clip-path:none}.ph img{transform:none}
+}
+</style>
+</head>
+<body class="lock">
+
+<div id="intro" aria-hidden="true"><div class="cells"></div><div class="mark"><i></i><i></i><i></i><i></i></div></div>
+<div id="cur" aria-hidden="true">View</div>
+
+<header>
+  <a href="#top" aria-label="SPEKTRI"><img src="img/logo.png" alt="spektri" width="70" height="19"></a>
+  <nav aria-label="Main"><a href="#work">Work</a><a href="#contact">Contact</a></nav>
+</header>
+
+<main id="top">
+<section class="hero" id="hero">
+  <div class="aura"></div>
+  <div class="corner micro"><span>SPEKTRI</span><span>Prishtina · 2026</span></div>
+  <div class="px" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <h1 aria-label="Spectrum of Art"><span class="ln" data-split>SPECTRUM</span><span class="ln" data-split>OF <em class="art" style="font-style:normal">ART</em></span></h1>
+    <div class="row">
+      <span class="micro">Film &amp; audiovisual studio</span>
+      <a class="cta" href="#work"><span>See work</span><span aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+  <div class="checker" aria-hidden="true"></div>
+</section>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="head"><h2 class="rv">Work</h2><span class="micro">2025 — 2026</span></div>
+    <div class="grid-w">
+      <a class="card" href="https://youtu.be/XR2S1jrUc5M" target="_blank" rel="noopener" data-cur>
+        <div class="ph"><img src="img/rf-hero.webp" alt="Ranch Fest, still"></div>
+        <div class="meta"><h3>Ranch Fest</h3><span class="micro">Commercial</span></div>
+      </a>
+      <a class="card" href="https://www.instagram.com/p/DeZnhFwALgP/" target="_blank" rel="noopener" data-cur>
+        <div class="ph"><img src="img/ava-01.webp" alt="AVA CR7, still"></div>
+        <div class="meta"><h3>AVA CR7</h3><span class="micro">Commercial</span></div>
+      </a>
+      <a class="card" href="https://youtu.be/KWa_jm6h9S4" target="_blank" rel="noopener" data-cur>
+        <div class="ph"><img src="img/ts-01.webp" alt="MONi — T’lash me shku, still"></div>
+        <div class="meta"><h3>MONi — T’lash me shku</h3><span class="micro">Music video</span></div>
+      </a>
+      <a class="card" href="https://youtu.be/9vjeTJ1PSAk" target="_blank" rel="noopener" data-cur>
+        <div class="ph"><img src="img/uj-01.webp" alt="MONi — Un jam ktu, still"></div>
+        <div class="meta"><h3>MONi — Un jam ktu</h3><span class="micro">Music video</span></div>
+      </a>
+      <a class="card" href="https://youtu.be/zM_quvqM4JA" target="_blank" rel="noopener" data-cur>
+        <div class="ph"><img src="img/ad-01.webp" alt="MONi — A don, still"></div>
+        <div class="meta"><h3>MONi — A don</h3><span class="micro">Music video</span></div>
+      </a>
+      <a class="card" href="https://youtu.be/7lkc6CI_-1U" target="_blank" rel="noopener" data-cur>
+        <div class="ph"><img src="img/mv-01.webp" alt="MONi, Andërr, still"></div>
+        <div class="meta"><h3>MONi — Andërr</h3><span class="micro">Music video</span></div>
+      </a>
+      <a class="card" href="https://youtu.be/CefIynGvgrE" target="_blank" rel="noopener" data-cur>
+        <div class="ph"><img src="img/tm-05.webp" alt="JOLLE, Tomli, still"></div>
+        <div class="meta"><h3>JOLLE — Tomli</h3><span class="micro">Music video</span></div>
+      </a>
+      <a class="card" href="https://youtu.be/Rh4nQc9cww0" target="_blank" rel="noopener" data-cur>
+        <div class="ph"><img src="img/js-01.webp" alt="Moni Sopa, Jetoj edhe pa ty, still"></div>
+        <div class="meta"><h3>Moni Sopa — Jetoj</h3><span class="micro">Music video</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="services" aria-label="Services">
+  <div class="wrap">
+    <ul>
+      <li class="rv"><h3>Film</h3><span class="sq"></span></li>
+      <li class="rv"><h3>Commercial</h3><span class="sq"></span></li>
+      <li class="rv"><h3>Music video</h3><span class="sq"></span></li>
+    </ul>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true"><div class="t" id="marq"></div></div>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="micro">Contact</span>
+    <h2 class="rv">Let’s talk</h2>
+    <a class="mail" id="mail" href="mailto:spektristudio@gmail.com">spektristudio@gmail.com</a>
+    <div class="rows">
+      <div><span class="micro">Phone</span><b>+383 48 513 987</b></div>
+      <div><span class="micro">Instagram</span><b><a href="https://www.instagram.com/spektri.studio/" target="_blank" rel="noopener">@spektri.studio</a></b></div>
+      <div><span class="micro">Based in</span><b>Prishtina, Kosovo</b></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="m" aria-label="SPEKTRI"><i></i><i></i><i></i><i></i></div>
+    <span class="micro">© SPEKTRI Studio 2026 · Founded by Rilind Bricori</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var body=document.body;
+
+  /* split headline into masked characters */
+  var n=0;
+  function split(node){
+    Array.prototype.slice.call(node.childNodes).forEach(function(ch){
+      if(ch.nodeType===3){
+        var f=document.createDocumentFragment();
+        ch.nodeValue.split(/(\s+)/).forEach(function(tok){
+          if(!tok)return;
+          if(/^\s+$/.test(tok)){f.appendChild(document.createTextNode(" "));return}
+          var w=document.createElement("span");w.className="w";
+          tok.split("").forEach(function(c){var s=document.createElement("span");s.className="c";s.style.setProperty("--i",n++);s.textContent=c;w.appendChild(s)});
+          f.appendChild(w);
+        });
+        ch.parentNode.replaceChild(f,ch);
+      }else if(ch.nodeType===1)split(ch);
+    });
+  }
+  document.querySelectorAll("[data-split]").forEach(split);
+
+  /* intro: mark assembles, then pixel grid dissolves */
+  var intro=document.getElementById("intro"),cells=intro.querySelector(".cells");
+  function start(){
+    body.classList.remove("lock");body.classList.add("ready");
+  }
+  if(reduce){intro.classList.add("gone");start()}
+  else{
+    var size=Math.max(40,Math.round(Math.min(innerWidth,innerHeight)/12));
+    var cols=Math.ceil(innerWidth/size),rows=Math.ceil(innerHeight/size);
+    cells.style.gridTemplateColumns="repeat("+cols+",1fr)";cells.style.gridTemplateRows="repeat("+rows+",1fr)";
+    var arr=[];
+    for(var i=0;i<cols*rows;i++){var c=document.createElement("i");cells.appendChild(c);arr.push(c)}
+    setTimeout(function(){
+      intro.classList.add("out");
+      arr.forEach(function(c,k){
+        var x=k%cols,y=Math.floor(k/cols);
+        var d=(Math.hypot(x-cols/2,y-rows/2)/Math.hypot(cols/2,rows/2))*500+Math.random()*350;
+        setTimeout(function(){c.style.opacity=0},d);
+      });
+      start();
+      setTimeout(function(){intro.classList.add("gone")},1500);
+    },1350);
+  }
+
+  /* marquee */
+  var mq=document.getElementById("marq"),unit="";
+  for(var k=0;k<2;k++)unit+="<span>Spectrum</span><span>of Art</span>";
+  mq.innerHTML=unit+unit;
+  var mx=0,half=0;
+  function measure(){half=mq.scrollWidth/2}
+  measure();addEventListener("resize",measure);
+
+
+  /* reveals */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.1});
+  document.querySelectorAll(".rv,.card").forEach(function(e){io.observe(e)});
+
+  /* scroll loop */
+  var lastY=scrollY,vel=0,header=document.querySelector("header"),phs=document.querySelectorAll(".ph");
+  function clamp(v){return Math.max(0,Math.min(1,v))}
+  function frame(){
+    var y=scrollY,dy=y-lastY;lastY=y;
+    vel+=(dy-vel)*.12;
+    header.classList.toggle("hide",dy>2&&y>200);
+    if(!reduce){
+      mx-=1.1+Math.abs(vel)*.35;
+      if(-mx>half)mx+=half;
+      mq.style.transform="translate3d("+mx+"px,0,0)";
+      var vh=innerHeight;
+      phs.forEach(function(ph){
+        var b=ph.getBoundingClientRect();
+        if(b.bottom<-50||b.top>vh+50)return;
+        ph.style.setProperty("--py",(((b.top+b.height/2-vh/2)/vh)*-7).toFixed(2)+"%");
+      });
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  /* hero aura follows pointer */
+  var hero=document.getElementById("hero"),tx=70,ty=45,cx=70,cy=45;
+  hero.addEventListener("pointermove",function(e){var b=hero.getBoundingClientRect();tx=(e.clientX-b.left)/b.width*100;ty=(e.clientY-b.top)/b.height*100});
+  (function aura(){cx+=(tx-cx)*.06;cy+=(ty-cy)*.06;hero.style.setProperty("--mx",cx.toFixed(1)+"%");hero.style.setProperty("--my",cy.toFixed(1)+"%");requestAnimationFrame(aura)})();
+
+  /* cursor label on projects */
+  var cur=document.getElementById("cur"),px=0,py=0,gx=0,gy=0;
+  addEventListener("pointermove",function(e){gx=e.clientX;gy=e.clientY});
+  (function mv(){px+=(gx-px)*.18;py+=(gy-py)*.18;cur.style.left=px+"px";cur.style.top=py+"px";requestAnimationFrame(mv)})();
+  document.querySelectorAll("[data-cur]").forEach(function(a){
+    a.addEventListener("pointerenter",function(){cur.classList.add("on")});
+    a.addEventListener("pointerleave",function(){cur.classList.remove("on")});
+  });
+
+  /* magnetic email */
+  var mail=document.getElementById("mail");
+  mail.addEventListener("pointermove",function(e){var b=mail.getBoundingClientRect();mail.style.transform="translate("+((e.clientX-b.left-b.width/2)*.04)+"px,"+((e.clientY-b.top-b.height/2)*.2)+"px)"});
+  mail.addEventListener("pointerleave",function(){mail.style.transform=""});
+
+  /* failsafe */
+  setTimeout(function(){if(body.classList.contains("lock"))start()},4500);
+})();
+</script>
+</body>
+</html>
